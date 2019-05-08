@@ -1,8 +1,8 @@
 # Practica-Final
 
-##Práctica Final Sistemas Gráficos
+## Práctica Final Sistemas Gráficos
 
-###Autores:
+### Autores:
 
 Alexis Molina García
 Manuel Mesas Gutiérrez
