@@ -1,0 +1,29 @@
+SHIFT+F5
+
+DOCUMENTACIÓN: threejs.org
+
+WebGl con javascript
+
+Grafo Escena -> TRHEE
+
+                        ESCENA
+                       /      \
+                      /        \
+                     /          \
+                    /            \
+              GEOMETRÍA        TRANSFORMACIÓN <---------ACTUALIZACIÓN
+                                      |
+                                      |
+                                      |
+                                      |
+                                    GEOMETRÍA
+
+VISUALIZACIÓN
+
+script.js
+
+render() ------> update() -------> renderizar(escena,cámara)
+
+MyScene
+
+MyBox
