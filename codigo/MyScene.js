@@ -141,5 +141,7 @@ class MyScene extends THREE.Scene {
     // "Añadimos" los objetos a la escena
     //this.pendulo1.rotation.z+=0.01;
     //this.pendulo1.update();
+    this.nave.update();
+
   }
 }

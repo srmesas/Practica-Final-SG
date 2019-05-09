@@ -7,7 +7,7 @@ class Nave extends THREE.Object3D {
 
     // Se crea la parte de la interfaz que corresponde a la caja
     // Se crea primero porque otros métodos usan las variables que se definen para la interfaz
-    //this.createGUI(nombre);
+    this.createGUI();
 
     // Un Mesh se compone de geometría y material
     //this.geometry = new THREE.BoxGeometry (1,1,1);
@@ -42,20 +42,31 @@ class Nave extends THREE.Object3D {
   }
 
   crearNave(){
+    
     var that = this;
+    var nave = new THREE.Object3D();
     var loader = new THREE.OBJLoader2();
-    loader.loadMtl('../battlecruiser/battlecruiser.mtl'/*'avent/Avent.mtl''porsche911/911.mtl''./bugatti/bugatti.mtl'*/, null,
+    loader.loadMtl('../battlecruiser/battlecruiser.mtl', null,
       function(materials){
         loader.setMaterials(materials);
         loader.setLogging(true,true);
-        loader.load('../battlecruiser/battlecruiser.obj',//'avent/Avent.obj',//'porsche911/Porsche_911_GT2.obj',//'./bugatti/bugatti.obj',
+        loader.load('../battlecruiser/battlecruiser.obj',
           function(object){
             var modelo = object.detail.loaderRootNode;
             modelo.scale.set(0.01,0.01,0.01);
-            that.add(modelo);
+            modelo.position.y=0.5;
+            modelo.rotation.y=Math.PI/2;
+            nave.add(modelo);
           },null,null,null,false);
       });
-    return this.modelo;
+    return nave;
+
+    /*var materialVerde = new THREE.MeshPhongMaterial({color: 0x00FF00});
+    var geometriaCajaVerde1 = new THREE.BoxGeometry (1,1,2);
+    this.cajaVerde1 = new THREE.Mesh( geometriaCajaVerde1 ,  materialVerde);
+    this.cajaVerde1.position.y=0.5;
+    this.cajaVerde1.rotation.y=Math.PI;
+    return this.cajaVerde1;*/
   }
 
   crearContenedorRotacion(){
@@ -70,26 +81,26 @@ class Nave extends THREE.Object3D {
     return this.contenedorCamino;
   }
 
-  createGUI (nombre) {
+  rotar(angulo){
+    this.contenedorRotacion.rotation.z=angulo;
+  }
+
+  createGUI () {
     // Controles para el tamaño, la orientación y la posición de la caja
     this.guiControls = new function () {
-      this.posY = 0.2;
       this.Rotate = 0;
       // Un botón para dejarlo todo en su posición inicial
       // Cuando se pulse se ejecutará esta función.
       this.reset = function () {
-        this.posY = 0.2;
         this.Rotate = 0;
       }
     }
 
     // Se crea una sección para los controles de la caja
-    var folder = gui.addFolder (nombre);
+    var folder = gui.addFolder ("Nave");
     // Estas lineas son las que añaden los componentes de la interfaz
     // Las tres cifras indican un valor mínimo, un máximo y el incremento
     // El método   listen()   permite que si se cambia el valor de la variable en código, el deslizador de la interfaz se actualice
-    //folder.add (this.guiControls, 'h', 1.0, 2.0, 0.1).name ('Tamaño caja roja: ').listen();
-    folder.add (this.guiControls, 'posY', 0.2,2, 0.2).name ('PosY: ').listen();
     folder.add (this.guiControls, 'Rotate', 0,2*Math.PI, 0.2).name ('Rotacion: ').listen();
     folder.add (this.guiControls, 'reset').name ('[ Reset ]');
 
@@ -97,6 +108,8 @@ class Nave extends THREE.Object3D {
   }
 
   update () {
+    this.rotar(this.guiControls.Rotate);
+
     // Con independencia de cómo se escriban las 3 siguientes líneas, el orden en el que se aplican las transformaciones es:
     // Primero, el escalado
     // Segundo, la rotación en Z
