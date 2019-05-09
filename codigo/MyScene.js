@@ -27,13 +27,13 @@ class MyScene extends THREE.Scene {
     this.axis = new THREE.AxesHelper (5);
     this.add (this.axis);
 
-    this.pendulo1 = new Pendulo("Pendulo 1");
-    this.add (this.pendulo1);
+    //this.pendulo1 = new Pendulo("Pendulo 1");
+    //this.add (this.pendulo1);
 
     // Por último creamos la caja del ejemplo, como una instancia de una clase propia, que gestionará su creación y la interacción con la misma
     // THIS es la propia escena
-    //this.caja1 = new MyBox("Caja 1");
-    //this.add (this.caja1);
+    this.nave = new Nave();
+    this.add (this.nave);
 
   }
 
@@ -140,6 +140,6 @@ class MyScene extends THREE.Scene {
     // Se actualiza el resto del modelo
     // "Añadimos" los objetos a la escena
     //this.pendulo1.rotation.z+=0.01;
-    this.pendulo1.update();
+    //this.pendulo1.update();
   }
 }

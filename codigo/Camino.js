@@ -105,6 +105,37 @@ class Pendulo extends THREE.Object3D {
       this.movimiento2.chain(this.movimiento1);
       this.movimiento1.start();
       //this.movimiento2.start();
+
+      //-------------------------
+      this.curva = new THREE.EllipseCurve(0,  0,            // ax, aY
+        50, 30,           // xRadius, yRadius
+        0,  2 * Math.PI,  // aStartAngle, aEndAngle
+        false,            // aClockwise
+        0                 // aRotation
+        );
+        var points = this.curva.getPoints( 50 );
+        //console.log(points);
+        var points3=[];
+        //falta añadir bucle
+        for(var i=0; i< points.length; i++){
+          points3.push(new THREE.Vector3(points[i].x,points[i].y,0));
+        }
+        //console.log(points3);
+      this.recorridoSpline = new THREE.CatmullRomCurve3(points3);
+      this.opciones = {steps: 50, curveSegments: 50, extrudePath: this.recorridoSpline};
+      this.barrido = new THREE.TubeGeometry(this.recorridoSpline, 
+        100, //steps
+        0.5, // radio
+        6,   // caras laterales
+        false);
+      this.material = new THREE.MeshPhongMaterial( { color : 0xff0000 } );
+      this.material.side = THREE.DoubleSide;
+      this.b = new THREE.Mesh( this.barrido , this.material);
+      this.add(this.b);
+      //this.mesh = new THREE.Mesh(this.geometry, this.material);
+  
+
+      //-------------------------
   }
 
   createGUI (nombre) {

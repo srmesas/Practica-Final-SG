@@ -16,11 +16,12 @@ class Modelo extends THREE.Object3D {
         loader.load('battlecruiser/battlecruiser.obj',//'avent/Avent.obj',//'porsche911/Porsche_911_GT2.obj',//'./bugatti/bugatti.obj',
           function(object){
             var modelo = object.detail.loaderRootNode;
+            modelo.scale.set(0.01,0.01,0.01);
             that.add(modelo);
           },null,null,null,false);
       });
 
-      this.scale.set(0.2,0.2,0.2);
+      //this.
 
     // Un Mesh se compone de geometría y material
     //this.geometry = new THREE.BoxGeometry (1,1,1);
