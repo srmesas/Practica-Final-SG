@@ -35,6 +35,74 @@ class MyScene extends THREE.Scene {
     this.nave = new Nave();
     this.add (this.nave);
 
+    this.pista = new Pista();
+    this.add(this.pista);
+
+    /*var origen1={t: 0};
+    var destino1={t: 0.645};
+    var that = this;
+    this.movimiento1 = new TWEEN.Tween(origen1)
+      .to(destino1, 4000)
+      .easing(TWEEN.Easing.Quadratic.InOut)
+      .onUpdate (function(){
+        var posicion = that.pista.obtenerPunto(this.t);
+        that.nave.position.copy(posicion);
+        //that.cajaVerde1.position.y = that.guiControls.posY;
+        //that.ContenedorRotacion.rotation.z = that.guiControls.Rotate;
+        var tangente = that.pista.obtenerTangente(this.t);
+        posicion.add(tangente);//Se  mira a un punto en esa dirección
+        that.nave.lookAt(posicion);
+      })
+      .onComplete(function(){
+        this.t= 0; });
+      //.repeat(Infinity);
+      //.yoyo(true);
+      //.start();
+
+    var origen2={t: 0.645};
+    var destino2={t: 1};
+    var that = this;
+    this.movimiento2 = new TWEEN.Tween(origen2)
+      .to(destino2, 8000)
+      .easing(TWEEN.Easing.Quadratic.InOut)
+      .onUpdate (function(){
+        var posicion = that.pista.obtenerPunto(this.t);
+        that.nave.position.copy(posicion);
+        var tangente = that.pista.obtenerTangente(this.t);
+        //that.cajaVerde1.position.y = that.guiControls.posY;
+        //that.ContenedorRotacion.rotation.z = that.guiControls.Rotate;
+        posicion.add(tangente);//Se  mira a un punto en esa dirección
+        that.nave.lookAt(posicion);
+      })
+      .onComplete(function(){
+        this.t= 0.645; });
+      //.repeat(Infinity);
+      //.yoyo(true);
+      //.start();
+
+      this.movimiento1.chain(this.movimiento2);
+      this.movimiento2.chain(this.movimiento1);
+      this.movimiento1.start();*/
+
+    var origen1={t: 0};
+    var destino1={t: 1};
+    var that = this;
+    this.movimiento1 = new TWEEN.Tween(origen1)
+      .to(destino1, 12000)
+      .easing(TWEEN.Easing.Quadratic.InOut)
+      .onUpdate (function(){
+        var posicion = that.pista.obtenerPunto(this.t);
+        that.nave.position.copy(posicion);
+        //that.cajaVerde1.position.y = that.guiControls.posY;
+        //that.ContenedorRotacion.rotation.z = that.guiControls.Rotate;
+        var tangente = that.pista.obtenerTangente(this.t);
+        posicion.add(tangente);//Se  mira a un punto en esa dirección
+        that.nave.lookAt(posicion);
+      })
+      .repeat(Infinity)
+      //.yoyo(true)
+      .start();
+
   }
 
   createCamera (unRenderer) {

@@ -53,7 +53,7 @@ class Nave extends THREE.Object3D {
         loader.load('../battlecruiser/battlecruiser.obj',
           function(object){
             var modelo = object.detail.loaderRootNode;
-            modelo.scale.set(0.01,0.01,0.01);
+            modelo.scale.set(0.005,0.005,0.005);
             modelo.position.y=0.5;
             modelo.rotation.y=Math.PI/2;
             nave.add(modelo);
