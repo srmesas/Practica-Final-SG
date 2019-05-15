@@ -26,7 +26,7 @@ class Pista extends THREE.Object3D {
       100, //steps
       0.5, // radio
       6,   // caras laterales
-      false);
+      true);
     this.material = new THREE.MeshPhongMaterial( { color : 0xff0000 } );
     //this.material.side = THREE.DoubleSide;
     this.barrido = new THREE.Mesh( this.geometriaBarrido , this.material);

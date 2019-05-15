@@ -16,7 +16,6 @@ class MyScene extends THREE.Scene {
     // Todo elemento que se desee sea tenido en cuenta en el renderizado de la escena debe pertenecer a esta. Bien como hijo de la escena (this en esta clase) o como hijo de un elemento que ya esté en la escena.
     // Tras crear cada elemento se añadirá a la escena con   this.add(variable)
     this.createLights ();
-
     // Tendremos una cámara con un control de movimiento con el ratón
     this.createCamera (unRenderer);
 
@@ -32,7 +31,7 @@ class MyScene extends THREE.Scene {
 
     // Por último creamos la caja del ejemplo, como una instancia de una clase propia, que gestionará su creación y la interacción con la misma
     // THIS es la propia escena
-    this.nave = new Nave();
+    
     this.add (this.nave);
 
     this.pista = new Pista();
@@ -105,17 +104,15 @@ class MyScene extends THREE.Scene {
 
   }
 
-  createCamera (unRenderer) {
+  /*createCamera (unRenderer) {
     // Para crear una cámara le indicamos
     //   El ángulo del campo de visión en grados sexagesimales
     //   La razón de aspecto ancho/alto
     //   Los planos de recorte cercano y lejano
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-    // También se indica dónde se coloca
-    this.camera.position.set (5, 0, 40);
-    // Y hacia dónde mira
-    var look = new THREE.Vector3 (0,0,0);
-    this.camera.lookAt(look);
+    // También se indica dónde se coloca;
+    this.camera.position.set (this.nave.position.x, this.nave.position.y,this.nave.position.z);
+   
     this.add (this.camera);
 
     // Para el control de cámara usamos una clase que ya tiene implementado los movimientos de órbita
@@ -125,8 +122,45 @@ class MyScene extends THREE.Scene {
     this.cameraControl.zoomSpeed = -2;
     this.cameraControl.panSpeed = 0.5;
     // Debe orbitar con respecto al punto de mira de la cámara
-    this.cameraControl.target = look;
+    this.cameraControl.target = this.nave.position;
+  }*/
+  createCamera (unRenderer) {
+    // Para crear una cámara le indicamos
+    //   El ángulo del campo de visión en grados sexagesimales
+    //   La razón de aspecto ancho/alto
+    //   Los planos de recorte cercano y lejano
+    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    // También se indica dónde se coloca;
+   
+    this.nave.contenedorRotacion.add (this.camera);
+
+    this.camera.position.set (0,1.2,-2.2);
+    var target = this.nave.position.clone();
+    this.camera.getWorldPosition(target);
+    this.camera.lookAt(target);
+    this.camera.rotation.y = Math.PI;
+
+    //var target = new THREE.Vector3(0,0,-3);
+
+
+    /* Para el control de cámara usamos una clase que ya tiene implementado los movimientos de órbita
+    this.cameraControl = new THREE.TrackballControls (this.camera, unRenderer);
+    // Se configuran las velocidades de los movimientos
+    this.cameraControl.rotateSpeed = 5;
+    this.cameraControl.zoomSpeed = -2;
+    this.cameraControl.panSpeed = 0.5;
+    // Debe orbitar con respecto al punto de mira de la cámara
+    this.cameraControl.target = this.nave.position;*/
   }
+/*
+  createOnboardCamera(unRenderer){
+    this.goal = new THREE.Object3D()
+    this.add(this.goal);
+    this.onBoardCamera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+    
+  
+  
+  }*/
 
   createGround () {
     // Una figura es un Mesh
@@ -150,6 +184,7 @@ class MyScene extends THREE.Scene {
       // En el contexto de una función   this   alude a la función
       this.lightIntensity = 0.5;
       this.axisOnOff = true;
+      this.onBoard = false;
     }
 
     // Accedemos a la variable global   gui   declarada en   script.js   para añadirle la parte de interfaz que corresponde a los elementos de esta clase
@@ -162,6 +197,7 @@ class MyScene extends THREE.Scene {
 
     // Y otro para mostrar u ocultar los ejes
     folder.add (this.guiControls, 'axisOnOff').name ('Mostrar ejes escena: ');
+    folder.add (this.guiControls, 'onBoard').name ('Cámara a bordo: ');
   }
 
   createLights () {
@@ -203,8 +239,8 @@ class MyScene extends THREE.Scene {
     //this.ejes3.visible = this.guiControls.axisOnOff;
 
     // Se actualiza la posición de la cámara según su controlador
-    this.cameraControl.update();
-
+    //this.cameraControl.update();
+    //this.camera.position.set (this.nave.position.x, this.nave.position.y,this.nave.position.z);
     // Se actualiza el resto del modelo
     // "Añadimos" los objetos a la escena
     //this.pendulo1.rotation.z+=0.01;

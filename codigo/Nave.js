@@ -53,12 +53,13 @@ class Nave extends THREE.Object3D {
         loader.load('../battlecruiser/battlecruiser.obj',
           function(object){
             var modelo = object.detail.loaderRootNode;
-            modelo.scale.set(0.005,0.005,0.005);
+            modelo.scale.set(0.001,0.001,0.001);
             modelo.position.y=0.5;
             modelo.rotation.y=Math.PI/2;
             nave.add(modelo);
           },null,null,null,false);
       });
+
     return nave;
 
     /*var materialVerde = new THREE.MeshPhongMaterial({color: 0x00FF00});
@@ -75,6 +76,7 @@ class Nave extends THREE.Object3D {
     return this.contenedorRotacion;
   }
 
+
   crearContenedorCamino(){
     this.contenedorCamino = new THREE.Object3D();
     this.contenedorCamino.add(this.crearContenedorRotacion());
@@ -83,6 +85,7 @@ class Nave extends THREE.Object3D {
 
   rotar(angulo){
     this.contenedorRotacion.rotation.z=angulo;
+    //this.contenedorRotacion.children[1].rotation.z=angulo/2;
   }
 
   createGUI () {
