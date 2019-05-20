@@ -1,6 +1,3 @@
-//moveLeft = false;
-//moveRight = false;
-
 /// La clase fachada del modelo
 /**
  * Usaremos una clase derivada de la clase Scene de Three.js para llevar el control de la escena y de todo lo que ocurre en ella.
@@ -248,10 +245,60 @@ class MyScene extends THREE.Scene {
     // "Añadimos" los objetos a la escena
     //this.pendulo1.rotation.z+=0.01;
     //this.pendulo1.update();
-    if (moveLeft) this.nave.rotar(-0.2);//this.nave.moveLeft();
-    if (moveRight) this.nave.rotar(0.2);//this.nave.moveRight();
+    if (moveLeft) angulo-=0.2;//this.nave.rotar(-0.2);//this.nave.moveLeft();
+    if (moveRight) angulo+=0.2;//this.nave.rotar(0.2);//this.nave.moveRight();
+    this.nave.rotar(angulo);
 
-    this.nave.update();
+    //this.nave.update();
 
   }
 }
+moveLeft = false;
+moveRight = false;
+angulo=0;
+enableControls = true; 
+
+window.addEventListener("keydown", onKeyDown, true);
+window.addEventListener("keyup", onKeyUp, true);
+
+  function onKeyDown (event) {
+    if (enableControls) {
+      switch ( event.keyCode ) {
+  
+        case 37: // left
+        case 65: // a
+          moveLeft = true;
+          break;
+  
+        case 39: // right
+        case 68: // d
+          moveRight = true;
+          break;
+  
+        //case 32: // space
+        //  shoot = true;
+        //  break;
+      }
+    }
+  }
+  
+  function onKeyUp (event) {
+    if (enableControls) {
+      switch ( event.keyCode ) {
+  
+        case 37: // left
+        case 65: // a
+          moveLeft = false;
+          break;
+  
+        case 39: // right
+        case 68: // d
+          moveRight = false;
+          break;
+  
+        //case 32: // space
+        //  shoot = false;
+        //  break;
+      }
+    }
+  }
