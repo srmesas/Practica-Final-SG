@@ -1,3 +1,5 @@
+//moveLeft = false;
+//moveRight = false;
 
 /// La clase fachada del modelo
 /**
@@ -16,8 +18,6 @@ class MyScene extends THREE.Scene {
     // Todo elemento que se desee sea tenido en cuenta en el renderizado de la escena debe pertenecer a esta. Bien como hijo de la escena (this en esta clase) o como hijo de un elemento que ya esté en la escena.
     // Tras crear cada elemento se añadirá a la escena con   this.add(variable)
     this.createLights ();
-    // Tendremos una cámara con un control de movimiento con el ratón
-    this.createCamera (unRenderer);
 
     // Un suelo
     //this.createGround ();
@@ -31,8 +31,11 @@ class MyScene extends THREE.Scene {
 
     // Por último creamos la caja del ejemplo, como una instancia de una clase propia, que gestionará su creación y la interacción con la misma
     // THIS es la propia escena
-    
+    this.nave = new Nave
     this.add (this.nave);
+
+    // Tendremos una cámara con un control de movimiento con el ratón
+    this.createCamera (unRenderer);
 
     this.pista = new Pista();
     this.add(this.pista);
@@ -87,7 +90,7 @@ class MyScene extends THREE.Scene {
     var destino1={t: 1};
     var that = this;
     this.movimiento1 = new TWEEN.Tween(origen1)
-      .to(destino1, 12000)
+      .to(destino1, 16000)
       .easing(TWEEN.Easing.Quadratic.InOut)
       .onUpdate (function(){
         var posicion = that.pista.obtenerPunto(this.t);
@@ -245,6 +248,9 @@ class MyScene extends THREE.Scene {
     // "Añadimos" los objetos a la escena
     //this.pendulo1.rotation.z+=0.01;
     //this.pendulo1.update();
+    if (moveLeft) this.nave.rotar(-0.2);//this.nave.moveLeft();
+    if (moveRight) this.nave.rotar(0.2);//this.nave.moveRight();
+
     this.nave.update();
 
   }

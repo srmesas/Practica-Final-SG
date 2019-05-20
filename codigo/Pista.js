@@ -25,16 +25,34 @@ class Pista extends THREE.Object3D {
     this.geometriaBarrido = new THREE.TubeGeometry(this.spline, 
       100, //steps
       0.5, // radio
-      6,   // caras laterales
+      30,//6,   // caras laterales
       true);
     this.material = new THREE.MeshPhongMaterial( { color : 0xff0000 } );
     //this.material.side = THREE.DoubleSide;
     this.barrido = new THREE.Mesh( this.geometriaBarrido , this.material);
     this.add(this.barrido);
 
-    /*
-  
-      */
+    //var cubos=[];
+    var contador = 0;
+    for(var i=0; i< puntos3D.length; i++){
+      //Math.floor((Math.random() * puntos3D.length) + 1);
+      if(contador < 2){
+        var geometry = new THREE.BoxBufferGeometry( 0.25, 0.25, 0.25 );
+        var material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+        var cubo = new THREE.Mesh( geometry, material );
+        geometry.translate(0,0.1+0.5,0);
+        cubo.rotation.z = Math.floor((Math.random() * Math.PI)+0.00);
+        var posicionCaja = new THREE.Object3D();
+        posicionCaja.position.copy(this.obtenerPunto(i/puntos3D.length));
+        //posicionCaja.position.copy(puntos3D[i]); // Esto no funciona porque el spline crea una curva respecto a los puntos
+        posicionCaja.add(cubo);
+        posicionCaja.lookAt(puntos3D[i]);
+        this.add(posicionCaja);
+        contador++;
+      }else{
+        contador = 0;
+      }
+    }
   }
 
   obtenerPunto(punto){
@@ -45,31 +63,6 @@ class Pista extends THREE.Object3D {
     return this.spline.getTangentAt(punto);
   }
 
-  createGUI () {
-    // Controles para el tamaño, la orientación y la posición de la caja
-    this.guiControls = new function () {
-      this.posY = 0.2;
-      this.Rotate = 0;
-      // Un botón para dejarlo todo en su posición inicial
-      // Cuando se pulse se ejecutará esta función.
-      this.reset = function () {
-        this.posY = 0.2;
-        this.Rotate = 0;
-      }
-    }
-
-    // Se crea una sección para los controles de la caja
-    var folder = gui.addFolder ();
-    // Estas lineas son las que añaden los componentes de la interfaz
-    // Las tres cifras indican un valor mínimo, un máximo y el incremento
-    // El método   listen()   permite que si se cambia el valor de la variable en código, el deslizador de la interfaz se actualice
-    //folder.add (this.guiControls, 'h', 1.0, 2.0, 0.1).name ('Tamaño caja roja: ').listen();
-    folder.add (this.guiControls, 'posY', 0.2,2, 0.2).name ('PosY: ').listen();
-    folder.add (this.guiControls, 'Rotate', 0,2*Math.PI, 0.2).name ('Rotacion: ').listen();
-    folder.add (this.guiControls, 'reset').name ('[ Reset ]');
-
-    
-  }
 
   update () {
     // Con independencia de cómo se escriban las 3 siguientes líneas, el orden en el que se aplican las transformaciones es:
