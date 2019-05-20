@@ -87,7 +87,16 @@ class MyScene extends THREE.Scene {
       this.movimiento2.chain(this.movimiento1);
       this.movimiento1.start();*/
 
-    var origen1={t: 0};
+    //Al crear el objeto medimos el tiempo actual
+    this.espacio=0;
+    this.t0 =  Date.now();
+    var posicion = this.pista.obtenerPunto(this.espacio);
+    this.nave.position.copy(posicion);
+    var tangente = this.pista.obtenerTangente(this.espacio);
+    posicion.add(tangente);
+    this.nave.lookAt(posicion);
+
+    /*var origen1={t: 0};
     var destino1={t: 1};
     var that = this;
     this.movimiento1 = new TWEEN.Tween(origen1)
@@ -104,7 +113,7 @@ class MyScene extends THREE.Scene {
       })
       .repeat(Infinity)
       //.yoyo(true)
-      .start();
+      .start();*/
 
   }
 
@@ -254,6 +263,20 @@ class MyScene extends THREE.Scene {
     //this.nave.rotar(this.angulo);
 
     //this.nave.update();
+
+    var t1 = Date.now();
+    var segundosTranscurridos = ( t1-this.t0) /10000;
+    this.espacio += segundosTranscurridos;
+    if(this.espacio > 1){
+      this.espacio = 0;
+    }
+    var posicion = this.pista.obtenerPunto(this.espacio);
+    this.nave.position.copy(posicion);
+    var tangente = this.pista.obtenerTangente(this.espacio);
+    posicion.add(tangente);
+    this.nave.lookAt(posicion);
+
+    this.t0 = t1;
 
   }
   naveMoveLeft(booleano){
