@@ -31,6 +31,10 @@ class MyScene extends THREE.Scene {
     this.nave = new Nave
     this.add (this.nave);
 
+    this.moveLeft = false;
+    this.moveRight = false;
+    this.angulo=0;
+
     // Tendremos una cámara con un control de movimiento con el ratón
     this.createCamera (unRenderer);
 
@@ -245,14 +249,31 @@ class MyScene extends THREE.Scene {
     // "Añadimos" los objetos a la escena
     //this.pendulo1.rotation.z+=0.01;
     //this.pendulo1.update();
-    if (moveLeft) angulo-=0.2;//this.nave.rotar(-0.2);//this.nave.moveLeft();
-    if (moveRight) angulo+=0.2;//this.nave.rotar(0.2);//this.nave.moveRight();
-    this.nave.rotar(angulo);
+    //if (this.moveLeft) this.angulo-=0.2;//this.nave.rotar(-0.2);//this.nave.moveLeft();
+    //if (this.moveRight) this.angulo+=0.2;//this.nave.rotar(0.2);//this.nave.moveRight();
+    //this.nave.rotar(this.angulo);
 
     //this.nave.update();
 
   }
+  naveMoveLeft(booleano){
+    //this.moveLeft=booleano;
+    if(booleano){
+      this.angulo-=0.3;
+      this.nave.rotar(this.angulo);
+    }
+  }
+  naveMoveRight(booleano){
+    if(booleano){
+      this.angulo+=0.3;
+      this.nave.rotar(this.angulo);
+    }
+  }
 }
+
+
+//enableControls = true; 
+/*
 moveLeft = false;
 moveRight = false;
 angulo=0;
@@ -302,3 +323,5 @@ window.addEventListener("keyup", onKeyUp, true);
       }
     }
   }
+*/
+

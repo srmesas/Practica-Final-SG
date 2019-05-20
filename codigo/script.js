@@ -64,6 +64,9 @@ $(function () {
   // Cada vez que el usuario cambie el tamaño de la ventana se llama a la función que actualiza la cámara y el renderer
   window.addEventListener ("resize", onWindowResize);
 
+  window.addEventListener("keydown", onKeyDown, true);
+  window.addEventListener("keyup", onKeyUp, true);
+
   // Se crea una interfaz gráfica de usuario vacia
   gui = new dat.GUI();
 
@@ -73,3 +76,46 @@ $(function () {
   // Finalmente, realizamos el primer renderizado.
   render();
 });
+
+
+function onKeyDown (event) {
+  //if (enableControls) {
+    switch ( event.keyCode ) {
+
+      case 37: // left
+      case 65: // a
+        scene.naveMoveLeft(true);
+        break;
+
+      case 39: // right
+      case 68: // d
+        scene.naveMoveRight(true);
+        break;
+
+      //case 32: // space
+      //  shoot = true;
+      //  break;
+    }
+  //}
+}
+
+function onKeyUp (event) {
+  //if (enableControls) {
+    switch ( event.keyCode ) {
+
+      case 37: // left
+      case 65: // a
+        scene.naveMoveLeft(false);
+        break;
+
+      case 39: // right
+      case 68: // d
+        scene.naveMoveRight(false);
+        break;
+
+      //case 32: // space
+      //  shoot = false;
+      //  break;
+    }
+  //}
+}
