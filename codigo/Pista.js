@@ -48,6 +48,7 @@ class Pista extends THREE.Object3D {
         posicionCaja.add(cubo);
         posicionCaja.lookAt(puntos3D[i]);
         //posicionCaja.name=i;
+        posicionCaja.porcentajePista = i/puntos3D.length;
         this.cubos.push(posicionCaja);
         this.add(posicionCaja);
         contador++;

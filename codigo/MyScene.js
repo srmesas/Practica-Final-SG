@@ -96,6 +96,8 @@ class MyScene extends THREE.Scene {
     posicion.add(tangente);
     this.nave.lookAt(posicion);
 
+    this.vuelta = false;
+
     /*var origen1={t: 0};
     var destino1={t: 1};
     var that = this;
@@ -265,10 +267,28 @@ class MyScene extends THREE.Scene {
     //this.nave.update();
 
     var t1 = Date.now();
-    var segundosTranscurridos = ( t1-this.t0) /10000;
+    var segundosTranscurridos = (t1-this.t0) /10000;
     this.espacio += segundosTranscurridos;
+    //var cubos = obtenerCubos;
+    var cubo;
+    for(var i = 0; i < this.pista.obtenerNumeroCubos(); i++){
+      cubo = this.pista.obtenerCubo(i);
+      //console.log(cubo);
+      //console.log(cubo.porcentajePista);
+      //console.log(this.espacio);
+      if (cubo.porcentajePista < this.espacio+0.05
+      && cubo.porcentajePista > this.espacio-0.05){
+        if(this.vuelta){
+          cubo.children[0].material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+        }else{
+          cubo.children[0].material = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
+        }
+      }
+    }
+    //var espacioVector = parseInt(this.espacio);
     if(this.espacio > 1){
       this.espacio = 0;
+      if(this.vuelta) this.vuelta=false; else this.vuelta=true;
     }
     var posicion = this.pista.obtenerPunto(this.espacio);
     this.nave.position.copy(posicion);
