@@ -32,7 +32,7 @@ class Pista extends THREE.Object3D {
     this.barrido = new THREE.Mesh( this.geometriaBarrido , this.material);
     this.add(this.barrido);
 
-    //var cubos=[];
+    this.cubos=[];
     var contador = 0;
     for(var i=0; i< puntos3D.length; i++){
       //Math.floor((Math.random() * puntos3D.length) + 1);
@@ -47,12 +47,31 @@ class Pista extends THREE.Object3D {
         //posicionCaja.position.copy(puntos3D[i]); // Esto no funciona porque el spline crea una curva respecto a los puntos
         posicionCaja.add(cubo);
         posicionCaja.lookAt(puntos3D[i]);
+        //posicionCaja.name=i;
+        this.cubos.push(posicionCaja);
         this.add(posicionCaja);
         contador++;
       }else{
         contador = 0;
       }
     }
+    //console.log(this.cubos);
+    //console.log(puntos3D.length);
+  }
+
+  //obtenerNumeroDivisionesCamino(){
+  //  return puntos3D.length;
+  //}
+
+  obtenerNumeroCubos(){
+    return this.cubos.length;
+  }
+
+  obtenerCubos(){
+    return this.cubos;
+  }
+  obtenerCubo(i){
+    return this.cubos[i];
   }
 
   obtenerPunto(punto){
