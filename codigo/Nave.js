@@ -37,8 +37,8 @@ class Nave extends THREE.Object3D {
 
     */
 
-    this.add(this.crearContenedorCamino());
-
+    //this.add(this.crearContenedorCamino());
+    this.add(this.crearContenedorRotacion());
   }
 
   crearNave(){
@@ -77,15 +77,19 @@ class Nave extends THREE.Object3D {
   }
 
 
-  crearContenedorCamino(){
+  /*crearContenedorCamino(){
     this.contenedorCamino = new THREE.Object3D();
     this.contenedorCamino.add(this.crearContenedorRotacion());
     return this.contenedorCamino;
-  }
+  }*/
 
   rotar(angulo){
     this.contenedorRotacion.rotation.z=angulo;
     //this.contenedorRotacion.children[1].rotation.z=angulo/2;
+  }
+
+  getPosicion(){
+    return this.contenedorRotacion.children[0].position;
   }
 
   createGUI () {

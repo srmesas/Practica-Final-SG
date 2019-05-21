@@ -41,6 +41,9 @@ class MyScene extends THREE.Scene {
     this.pista = new Pista();
     this.add(this.pista);
 
+    this.skybox = new SkyBox();
+    this.add(this.skybox);
+
     /*var origen1={t: 0};
     var destino1={t: 0.645};
     var that = this;
@@ -278,13 +281,30 @@ class MyScene extends THREE.Scene {
       //console.log(this.espacio);
       if (cubo.porcentajePista < this.espacio+0.05
       && cubo.porcentajePista > this.espacio-0.05){
-        if(this.vuelta){
-          cubo.children[0].material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
-        }else{
-          cubo.children[0].material = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
+        //console.log("cubo: ");console.log(cubo.position.x);console.log(" ");
+        //console.log(cubo.position.y);console.log(" ");
+        //console.log(cubo.position.z);console.log(" ");
+        //console.log("NAVE: ");console.log(this.nave.getPosicion().x);console.log(" ");
+        //console.log(this.nave.getPosicion().y);console.log(" ");
+        //console.log(this.nave.getPosicion().z);console.log(" ");
+        var posicionCubo = cubo.position.clone();
+        var posicionNave = this.nave.getPosicion().clone();
+        cubo.getWorldPosition(posicionCubo);
+        this.nave.contenedorRotacion.children[0].getWorldPosition(posicionNave);
+        var distancia= (posicionCubo.x-posicionNave.x)+(posicionCubo.y-posicionNave.y)+(posicionCubo.z-posicionNave.z);
+        distancia = Math.sqrt(distancia);
+        //console.log(distancia);
+        
+        if (distancia*2 < cubo.radio*2){
+          //if(this.vuelta){
+          //  cubo.children[0].material = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+          //}else{
+            cubo.children[0].material = new THREE.MeshBasicMaterial( {color: 0x0000ff} );
+          //}
         }
       }
     }
+    
     //var espacioVector = parseInt(this.espacio);
     if(this.espacio > 1){
       this.espacio = 0;
