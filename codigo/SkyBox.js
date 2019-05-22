@@ -13,10 +13,10 @@ class SkyBox extends THREE.Object3D {
                 path + "drakeq_lf" + format,
     ];
 
-    var textureCube = new THREE.CubeTextureLoader().load(urls);
+    this.textureCube = new THREE.CubeTextureLoader().load(urls);
 
     var shader = THREE.ShaderLib["cube"];
-    shader.uniforms["tCube"].value = textureCube;
+    shader.uniforms["tCube"].value = this.textureCube;
     var material = new THREE.ShaderMaterial({
       fragmentShader: shader.fragmentShader,
       vertexShader: shader.vertexShader,
@@ -24,10 +24,14 @@ class SkyBox extends THREE.Object3D {
       depthWrite: false,
       side: THREE.BackSide
     });
-    
-    this.environmentMesh = new THREE.Mesh (new THREE.BoxGeometry(1000, 1000, 1000), material);
+
+    this.environmentMesh = new THREE.Mesh (new THREE.BoxBufferGeometry(1000, 1000, 1000), material);
     
     this.add(this.environmentMesh);
+  }
+
+  getMapaTexturas(){
+    return this.textureCube;
   }
 
 }

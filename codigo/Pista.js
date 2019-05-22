@@ -1,6 +1,6 @@
 
 class Pista extends THREE.Object3D {
-  constructor() {
+  constructor(mapa) {
     super();
 
     // Se crea la parte de la interfaz que corresponde a la caja
@@ -26,9 +26,16 @@ class Pista extends THREE.Object3D {
       100, //steps
       0.5, // radio
       30,//6,   // caras laterales
-      true);
-    this.material = new THREE.MeshPhongMaterial( { color : 0xff0000 } );
-    //this.material.side = THREE.DoubleSide;
+      true
+    );
+
+    mapa.mapping = THREE.CubeRefractionMapping;
+    
+    this.material = new THREE.MeshPhongMaterial( { color: 0xccddff, envMap: mapa, refractionRatio: 0.98, reflectivity: 0.9 } );
+    //this.material = new THREE.MeshPhongMaterial( { color: 0xccfffd, envMap: mapa, refractionRatio: 0.985, reflectivity: 0.9 } );
+
+    //this.material = new THREE.MeshPhongMaterial( { color : 0xff0000 } );
+
     this.barrido = new THREE.Mesh( this.geometriaBarrido , this.material);
     this.add(this.barrido);
 

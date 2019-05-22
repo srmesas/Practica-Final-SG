@@ -38,11 +38,11 @@ class MyScene extends THREE.Scene {
     // Tendremos una cámara con un control de movimiento con el ratón
     this.createCamera (unRenderer);
 
-    this.pista = new Pista();
-    this.add(this.pista);
-
     this.skybox = new SkyBox();
     this.add(this.skybox);
+
+    this.pista = new Pista(this.skybox.getMapaTexturas());
+    this.add(this.pista);
 
     /*var origen1={t: 0};
     var destino1={t: 0.645};
@@ -160,8 +160,14 @@ class MyScene extends THREE.Scene {
 
     //var target = new THREE.Vector3(0,0,-3);
 
+    /*// También se indica dónde se coloca
+    this.camera.position.set (20, 10, 20);
+    // Y hacia dónde mira
+    var look = new THREE.Vector3 (0,0,0);
+    this.camera.lookAt(look);
+    this.add (this.camera);
 
-    /* Para el control de cámara usamos una clase que ya tiene implementado los movimientos de órbita
+    //Para el control de cámara usamos una clase que ya tiene implementado los movimientos de órbita
     this.cameraControl = new THREE.TrackballControls (this.camera, unRenderer);
     // Se configuran las velocidades de los movimientos
     this.cameraControl.rotateSpeed = 5;
@@ -179,21 +185,6 @@ class MyScene extends THREE.Scene {
   
   
   }*/
-
-  createGround () {
-    // Una figura es un Mesh
-    var ground = new THREE.Mesh ();
-    // Un Mesh se compone de geometría y material
-    ground.geometry = new THREE.BoxGeometry (50,0.2,50);
-    // Las primitivas básicas se crean centradas en el origen
-    // Se puede modificar su posición con respecto al sistema de coordenadas local con una transformación aplicada directamente a la geometría.
-    ground.geometry.applyMatrix (new THREE.Matrix4().makeTranslation(0,-0.1,0));
-    // Como material se crea uno a partir de una textura
-    var texture = new THREE.TextureLoader().load('../imgs/wood.jpg');
-    ground.material = new THREE.MeshPhongMaterial ({map: texture});
-    // Por último se añade el suelo a la escena
-    this.add (ground);
-  }
 
   createGUI () {
     // Se definen los controles que se modificarán desde la GUI
@@ -232,8 +223,17 @@ class MyScene extends THREE.Scene {
     // Si no se le da punto de mira, apuntará al (0,0,0) en coordenadas del mundo
     // En este caso se declara como   this.atributo   para que sea un atributo accesible desde otros métodos.
     this.spotLight = new THREE.SpotLight( 0xffffff, this.guiControls.lightIntensity );
-    this.spotLight.position.set( 60, 60, 40 );
+    this.spotLight.position.set( 0, 750, 100 );
     this.add (this.spotLight);
+
+    /*var loader = new  THREE.TextureLoader();
+    var textureSun = loader.load("../imgs/sunFlare.jpg");
+    var textureFlare = loader.load("../imgs/sunFlare.jpg");
+    var flareColor = new THREE.Color(0xffaacc);
+    var lensFlare = new THREE.Lensflare( textureSun, 350, 0.0, THREE.AdditiveBlending, flareColor);
+    lensFlare.add(textureFlare, 60, 0.6, THREE.AdditiveBlending);
+    lensFlare.add(textureFlare, 70, 0.7, THREE.AdditiveBlending);
+    lensFlare.position.copy(this.spotLight.position);*/
   }
 
   getCamera () {
@@ -255,6 +255,8 @@ class MyScene extends THREE.Scene {
     // Se muestran o no los ejes según lo que idique la GUI
     this.axis.visible = this.guiControls.axisOnOff;
     //this.ejes3.visible = this.guiControls.axisOnOff;
+
+    //this.cameraControl.update();
 
     // Se actualiza la posición de la cámara según su controlador
     //this.cameraControl.update();
