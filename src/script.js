@@ -66,6 +66,14 @@ $(function () {
   // Se crea el renderer
   renderer = createRenderer();
 
+  //PARA DEJAR DE MOSTRAR EL MENÚ
+  var instructions = document.getElementById('instrucciones');
+
+  //cuando se hace click se dea de mostrar el elemento instrucciones
+  instructions.addEventListener('click', function(event){
+      instructions.style.display = 'none';
+  },false);
+  
   // La salida del renderer se muestra en un DIV de la página index.html
   $("#WebGL-output").append(renderer.domElement);
 
