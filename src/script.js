@@ -12,6 +12,8 @@ gui = null;
 // objeto que referencia a los Stats
 var stats = null;
 
+//Permite el uso de los controles
+var enableControls = false;
 
 /// Se crea y configura un renderer WebGL
 /**
@@ -72,6 +74,7 @@ $(function () {
   //cuando se hace click se dea de mostrar el elemento instrucciones
   instructions.addEventListener('click', function(event){
       instructions.style.display = 'none';
+      enableControls = true;
   },false);
   
   // La salida del renderer se muestra en un DIV de la página index.html
@@ -100,7 +103,7 @@ $(function () {
 //Manejo de eventos de teclado
 
 function onKeyDown (event) {
-  //if (enableControls) {
+  if (enableControls) {
     switch ( event.keyCode ) {
 
       case 37: // left
@@ -117,11 +120,11 @@ function onKeyDown (event) {
       //  shoot = true;
       //  break;
     }
-  //}
+  }
 }
 
 function onKeyUp (event) {
-  //if (enableControls) {
+  if (enableControls) {
     switch ( event.keyCode ) {
 
       case 37: // left
@@ -138,5 +141,5 @@ function onKeyUp (event) {
       //  shoot = false;
       //  break;
     }
-  //}
+  }
 }
