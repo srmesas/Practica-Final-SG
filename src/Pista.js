@@ -22,7 +22,6 @@ class Pista extends THREE.Object3D {
 
     // Se crea el spline con los puntos 3D
     this.spline = new THREE.CatmullRomCurve3(puntos3D);
-    this.opciones = {steps: 100, curveSegments: 50, extrudePath: this.spline};
     this.geometriaBarrido = new THREE.TubeGeometry(this.spline, 
       100,  // steps
       0.5,  // radio
