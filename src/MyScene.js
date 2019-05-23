@@ -7,10 +7,6 @@ class MyScene extends THREE.Scene {
   constructor (unRenderer) {
     super();
 
-    //  Música de fondo
-    this.audio = new AudioFondo;
-    this.add(this.audio);
-
     // Se añade a la gui los controles para manipular los elementos de esta clase
     this.createGUI ();
 
@@ -75,8 +71,6 @@ class MyScene extends THREE.Scene {
     this.camera.getWorldPosition(target);
     this.camera.lookAt(target);
     this.camera.rotation.y = Math.PI;
-
-    this.camera.add(this.audio.getListener());
   }
 
   // Gui para los ejes

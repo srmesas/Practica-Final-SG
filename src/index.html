@@ -15,21 +15,61 @@
     <script type="text/javascript" src="../libs/Tween.js"></script>
     <script type="text/javascript" src="../libs/Lensflare.js"></script>
     <script type="text/javascript" src="../libs/stats.min.js"></script>
-    <script type="text/javascript" src="Audio.js"></script>
     <script type="text/javascript" src="Pista.js"></script>
     <script type="text/javascript" src="Nave.js"></script>
     <script type="text/javascript" src="SkyBox.js"></script>
     <script type="text/javascript" src="MyScene.js"></script>
     <script type="text/javascript" src="script.js"></script>
     <style>
-        body{
-            margin: 0;
-            overflow: hidden;
+        body {
+            background:#777;
+            padding:0;
+            margin:0;
+            overflow:hidden;
+            font-family: Monospace;
+        }
+        #overlay {
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height:100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            background: transparent;
+            color: #ffffff;
+        }
+        
+        #overlay > div {
+            text-align: center;
+        }
+        
+        #overlay > div > span {
+            height: 20px;
+            width: 100px;
+            background: transparent;
+            color: #ffffff;
+            outline: 1px solid #ffffff;
+            border: 0px;
+            cursor: pointer;
+        }
+        
+        #overlay > div > p {
+            color: #777777;
+             font-size: 12px;
         }
     </style>
 </head>
 <body>
-
+    <div id="overlay">
+        <div id="instrucciones">
+            <span id="startButton">Click to Play</span>
+            <p>Usa -> y <- para moverte</p>
+        </div>
+    </div>
 <!-- Div which will hold the Output -->
 <div id="WebGL-output">
 </div>
