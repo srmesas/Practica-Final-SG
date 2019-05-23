@@ -1,7 +1,0 @@
-python -m SimpleHTTPServer
-
-python -m http.server 8000
-/usr/bin/python: No module named http
-
-
-http://localhost:8000
