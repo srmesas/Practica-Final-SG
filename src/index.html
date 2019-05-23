@@ -15,6 +15,7 @@
     <script type="text/javascript" src="../libs/Tween.js"></script>
     <script type="text/javascript" src="../libs/Lensflare.js"></script>
     <script type="text/javascript" src="../libs/stats.min.js"></script>
+    <script type="text/javascript" src="Audio.js"></script>
     <script type="text/javascript" src="Pista.js"></script>
     <script type="text/javascript" src="Nave.js"></script>
     <script type="text/javascript" src="SkyBox.js"></script>
@@ -64,6 +65,9 @@
     </style>
 </head>
 <body>
+    <audio loop id="music" preload="auto" style="display: none">
+            <source src="../sounds/ambient.ogg" type="audio/ogg">
+    </audio>
     <div id="overlay">
         <div id="instrucciones">
             <span id="startButton">Click to Play</span>
