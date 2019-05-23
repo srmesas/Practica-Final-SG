@@ -7,6 +7,9 @@ class MyScene extends THREE.Scene {
   constructor (unRenderer) {
     super();
 
+    this.audio= new AudioFondo();
+    this.add(this.audio);
+
     // Se añade a la gui los controles para manipular los elementos de esta clase
     this.createGUI ();
 
@@ -59,6 +62,8 @@ class MyScene extends THREE.Scene {
     //   La razón de aspecto ancho/alto
     //   Los planos de recorte cercano y lejano
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+    this.camera.add( this.audio.listener );
     
     // La cámara cuelga de un Object3D de la nave
     this.nave.contenedorRotacion.add (this.camera);
