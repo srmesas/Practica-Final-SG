@@ -64,7 +64,9 @@ $(function () {
   // Cada vez que el usuario cambie el tamaño de la ventana se llama a la función que actualiza la cámara y el renderer
   window.addEventListener ("resize", onWindowResize);
 
+  //Se activa al pulsar una tecla
   window.addEventListener("keydown", onKeyDown, true);
+  //Se activa al soltar una tecla
   window.addEventListener("keyup", onKeyUp, true);
 
   // Se crea una interfaz gráfica de usuario vacia
@@ -77,6 +79,8 @@ $(function () {
   render();
 });
 
+
+//Manejo de eventos de teclado
 
 function onKeyDown (event) {
   //if (enableControls) {
