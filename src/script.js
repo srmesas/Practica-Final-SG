@@ -9,6 +9,9 @@ renderer = null;
 /// El objeto que referencia a la interfaz gráfica de usuario
 gui = null;
 
+// objeto que referencia a los Stats
+var stats = null;
+
 
 /// Se crea y configura un renderer WebGL
 /**
@@ -26,6 +29,12 @@ function createRenderer () {
   // Se establece el tamaño, se aprovoche la totalidad de la ventana del navegador
   renderer.setSize(window.innerWidth, window.innerHeight);
 
+  // Se crean Stats
+  stats = new Stats();
+  container = document.createElement( 'div' );
+  document.body.appendChild( container );
+  container.appendChild( stats.dom );
+
   return renderer;
 }
 
@@ -41,7 +50,7 @@ function render() {
 
   // Se le pide a la escena que se actualice antes de ser renderizada
   scene.update();
-  TWEEN.update();
+  stats.update();
   // Por último, se le pide al renderer que renderice la escena que capta una determinada cámara, que nos la proporciona la propia escena.
   renderer.render(scene, scene.getCamera());
 }
