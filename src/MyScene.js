@@ -29,7 +29,8 @@ class MyScene extends THREE.Scene {
     this.moveRight = false;
     this.angulo=0;
     this.anguloInverso=-Math.PI;
-    this.parametro=0.5;
+    this.parametro=0.5; //NO SE USA?
+    this.noPausado = false;
 
     // Cámara
     this.createCamera (unRenderer);
@@ -219,14 +220,18 @@ class MyScene extends THREE.Scene {
       this.espacio = 0;
     }
 
-    // Se obtiene el punto de la pista
-    var posicion = this.pista.obtenerPunto(this.espacio);
-    // Se posiciona la nave en dicho punto
-    this.nave.position.copy(posicion);
-    // Se pone la nave en paralelo al circuito
-    var tangente = this.pista.obtenerTangente(this.espacio);
-    posicion.add(tangente);
-    this.nave.lookAt(posicion);
+    //Si el juego no está pausado la nave se mueve
+    if(this.noPausado){
+      // Se obtiene el punto de la pista
+      var posicion = this.pista.obtenerPunto(this.espacio);
+      // Se posiciona la nave en dicho punto
+      this.nave.position.copy(posicion);
+      // Se pone la nave en paralelo al circuito
+      var tangente = this.pista.obtenerTangente(this.espacio);
+      posicion.add(tangente);
+      this.nave.lookAt(posicion);
+    }
+    
 
     // Actualizamos el tiempo
     this.t0 = t1;
@@ -249,7 +254,12 @@ class MyScene extends THREE.Scene {
       this.nave.rotar(this.angulo);
     }
   }
+  //Que empiece a moverse la nave tras quitar el menu
+  comenzarMovimiento(){
+    this.noPausado=true;
+  }
 }
+
 
 //enableControls = true; 
 /*

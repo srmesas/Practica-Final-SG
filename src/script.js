@@ -75,6 +75,7 @@ $(function () {
   instructions.addEventListener('click', function(event){
       instructions.style.display = 'none';
       enableControls = true;
+      scene.comenzarMovimiento();
   },false);
   
   // La salida del renderer se muestra en un DIV de la página index.html
