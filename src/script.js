@@ -83,8 +83,8 @@ $(function () {
         break;
       case 80: //p
         
-        instructions.style.fontSize = "50px";
-        instructions.innerHTML = "PAUSADO";
+        //instructions.style.fontSize = "30px";
+        instructions.innerHTML = "PAUSADO"+ "<br />"+ "pulse enter para continuar";
         instructions.style.visibility = 'visible';
         enableControls = false;
         scene.pausarJuego();
