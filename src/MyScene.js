@@ -185,7 +185,9 @@ class MyScene extends THREE.Scene {
     var tiempoTranscurrido = (t1-this.t0) /10000;
     // La nave avanza un espacio igual al tiempoTranscurrido
     // this.espacio comprende valores de 0 a 1, que es el porcentaje de la pista recorrido
-    this.espacio += tiempoTranscurrido;
+    if(this.noPausado){
+      this.espacio += tiempoTranscurrido;
+    }
 
     // Colisiones
 
@@ -224,18 +226,21 @@ class MyScene extends THREE.Scene {
     if(this.noPausado){
       tiempoTranscurrido = 0;
       // Se obtiene el punto de la pista
-    var posicion = this.pista.obtenerPunto(this.espacio);
-    // Se posiciona la nave en dicho punto
-    this.nave.position.copy(posicion);
-    // Se pone la nave en paralelo al circuito
-    var tangente = this.pista.obtenerTangente(this.espacio);
-    posicion.add(tangente);
-    this.nave.lookAt(posicion);
-    
+      var posicion = this.pista.obtenerPunto(this.espacio);
+      // Se posiciona la nave en dicho punto
+      this.nave.position.copy(posicion);
+      // Se pone la nave en paralelo al circuito
+      var tangente = this.pista.obtenerTangente(this.espacio);
+      posicion.add(tangente);
+      this.nave.lookAt(posicion);
+
+      // Actualizamos el tiempo
+      this.t0 = t1;
+    }else{
+      this.t0 = Date.now();
     }
     
-    // Actualizamos el tiempo
-    this.t0 = t1;
+
     
   }
 
