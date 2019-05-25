@@ -222,19 +222,21 @@ class MyScene extends THREE.Scene {
 
     //Si el juego no está pausado la nave se mueve
     if(this.noPausado){
+      tiempoTranscurrido = 0;
       // Se obtiene el punto de la pista
-      var posicion = this.pista.obtenerPunto(this.espacio);
-      // Se posiciona la nave en dicho punto
-      this.nave.position.copy(posicion);
-      // Se pone la nave en paralelo al circuito
-      var tangente = this.pista.obtenerTangente(this.espacio);
-      posicion.add(tangente);
-      this.nave.lookAt(posicion);
+    var posicion = this.pista.obtenerPunto(this.espacio);
+    // Se posiciona la nave en dicho punto
+    this.nave.position.copy(posicion);
+    // Se pone la nave en paralelo al circuito
+    var tangente = this.pista.obtenerTangente(this.espacio);
+    posicion.add(tangente);
+    this.nave.lookAt(posicion);
+    
     }
     
-
     // Actualizamos el tiempo
     this.t0 = t1;
+    
   }
 
   // La nave gira a la izquierda
@@ -258,59 +260,9 @@ class MyScene extends THREE.Scene {
   comenzarMovimiento(){
     this.noPausado=true;
   }
+
+  //pausamos el juego
+  pausarJuego(){
+    this.noPausado=false;
+  }
 }
-
-
-//enableControls = true; 
-/*
-moveLeft = false;
-moveRight = false;
-angulo=0;
-enableControls = true; 
-
-window.addEventListener("keydown", onKeyDown, true);
-window.addEventListener("keyup", onKeyUp, true);
-
-  function onKeyDown (event) {
-    if (enableControls) {
-      switch ( event.keyCode ) {
-  
-        case 37: // left
-        case 65: // a
-          moveLeft = true;
-          break;
-  
-        case 39: // right
-        case 68: // d
-          moveRight = true;
-          break;
-  
-        //case 32: // space
-        //  shoot = true;
-        //  break;
-      }
-    }
-  }
-  
-  function onKeyUp (event) {
-    if (enableControls) {
-      switch ( event.keyCode ) {
-  
-        case 37: // left
-        case 65: // a
-          moveLeft = false;
-          break;
-  
-        case 39: // right
-        case 68: // d
-          moveRight = false;
-          break;
-  
-        //case 32: // space
-        //  shoot = false;
-        //  break;
-      }
-    }
-  }
-*/
-

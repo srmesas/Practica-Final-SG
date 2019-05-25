@@ -70,14 +70,29 @@ $(function () {
 
   //PARA DEJAR DE MOSTRAR EL MENÚ
   var instructions = document.getElementById('instrucciones');
-
+  //var pausa = document.getElementById('pausa');
   //cuando se hace click se dea de mostrar el elemento instrucciones
-  instructions.addEventListener('click', function(event){
-      instructions.style.display = 'none';
-      enableControls = true;
-      scene.comenzarMovimiento();
+  window.addEventListener('keydown', function(event){
+    var key = event.which || event.keyCode;
+    switch ( event.keyCode ){
+      case 13://enter
+        //comenzamos el juego
+        instructions.style.visibility = 'hidden';
+        enableControls = true;
+        scene.comenzarMovimiento();
+        break;
+      case 80: //p
+        
+        instructions.style.fontSize = "50px";
+        instructions.innerHTML = "PAUSADO";
+        instructions.style.visibility = 'visible';
+        enableControls = false;
+        scene.pausarJuego();
+        break;
+    }
   },false);
-  
+
+
   // La salida del renderer se muestra en un DIV de la página index.html
   $("#WebGL-output").append(renderer.domElement);
 
@@ -89,7 +104,7 @@ $(function () {
   window.addEventListener("keydown", onKeyDown, true);
   //Se activa al soltar una tecla
   window.addEventListener("keyup", onKeyUp, true);
-
+  
   // Se crea una interfaz gráfica de usuario vacia
   gui = new dat.GUI();
 
@@ -115,8 +130,7 @@ function onKeyDown (event) {
       case 39: // right
       case 68: // d
         scene.naveMoveRight(true);
-        break;
-
+        break; 
       //case 32: // space
       //  shoot = true;
       //  break;
@@ -137,7 +151,6 @@ function onKeyUp (event) {
       case 68: // d
         scene.naveMoveRight(false);
         break;
-
       //case 32: // space
       //  shoot = false;
       //  break;
