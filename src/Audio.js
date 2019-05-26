@@ -2,7 +2,12 @@ class AudioFondo extends THREE.Object3D {
 
   constructor () {
     super();
-    this.listener = new THREE.AudioListener();
+    this.sound = new Howl({
+      src: ['../sounds/ambient.ogg'], volume: 0.05, loop: true
+    });
+    this.sound.play();
+    
+    /*this.listener = new THREE.AudioListener();
     //this.add( listener );
 
     // create a global audio source
@@ -16,11 +21,11 @@ class AudioFondo extends THREE.Object3D {
       sound.setLoop( true );
       sound.setVolume( 0.5 );
       sound.play();
-    });
+    });*/
   }
 
 
-  getListener(){
+  /*getListener(){
     return this.listener;
-  }
+  }*/
 }

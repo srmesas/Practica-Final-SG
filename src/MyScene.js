@@ -64,7 +64,7 @@ class MyScene extends THREE.Scene {
     //   Los planos de recorte cercano y lejano
     this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-    this.camera.add( this.audio.listener );
+    //this.camera.add( this.audio.listener );
     
     // La cámara cuelga de un Object3D de la nave
     this.nave.contenedorRotacion.add (this.camera);
@@ -235,7 +235,7 @@ class MyScene extends THREE.Scene {
       this.nave.lookAt(posicion);
 
       // Actualizamos el tiempo
-      this.t0 = t1;
+      this.t0 = t1;   
     }else{
       this.t0 = Date.now();
     }
@@ -264,10 +264,12 @@ class MyScene extends THREE.Scene {
   //Que empiece a moverse la nave tras quitar el menu
   comenzarMovimiento(){
     this.noPausado=true;
+    this.audio.sound.play();
   }
 
   //pausamos el juego
   pausarJuego(){
     this.noPausado=false;
+    this.audio.sound.pause();
   }
 }

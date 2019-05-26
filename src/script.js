@@ -84,7 +84,11 @@ $(function () {
       case 80: //p
         
         //instructions.style.fontSize = "30px";
-        instructions.innerHTML = "PAUSADO"+ "<br />"+ "pulse enter para continuar";
+        instructions.innerHTML =  "PAUSADO"+ "<br/>"+ 
+                                  "<p>Pulsa ENTER para continuar</p>"+
+                                  "<p>Pulsa ➡ o D para girar a la derecha</p>"+
+                                  "<p>Pulsa ⬅ o A para girar a la izquierda</p>"+
+                                  "<p>Pulsa P para pausar el juego</p>";
         instructions.style.visibility = 'visible';
         enableControls = false;
         scene.pausarJuego();
