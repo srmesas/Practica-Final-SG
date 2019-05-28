@@ -153,10 +153,12 @@ class MyScene extends THREE.Scene {
     this.camera.aspect = ratio;
     this.camera.updateProjectionMatrix();
   }
-  instructions = document.getElementById('instrucciones');
+  
+  //instructions = document.getElementById('instrucciones');
   
   //Finalizar partida
   endGame(){
+    var instructions = document.getElementById('instrucciones');
     instructions.style.visibility = 'visible';
     instructions.innerHTML = "GAME OVER ";
     pausarJuego();
