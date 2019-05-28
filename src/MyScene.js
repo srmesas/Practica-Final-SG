@@ -221,15 +221,12 @@ class MyScene extends THREE.Scene {
 
         // Se comprueba si el cubo i colisiona con la nave
         if (distancia < cubo.radio*2){
-<<<<<<< HEAD
           explode(this.nave.contenedorRotacion.children[0]);
           doExplosionLogic();
           //delete cubo;
           //this.pista.remove(cubo);
-=======
           //se ha colisionado
           this.hayColision = true;
->>>>>>> d04992a1d2ef29c30f57404ecd1eb1988a3c0d54
           // Se cambia el color del cubo que ha colisionado
           //cubo.children[0].children[0].material = new THREE.MeshPhongMaterial( {color: 0x0000ff, emissive:0x0000ff, emissiveIntensity:0.3} );
         }
