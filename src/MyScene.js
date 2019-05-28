@@ -1,11 +1,13 @@
 /// La clase fachada del modelo
 /**
  * Usaremos una clase derivada de la clase Scene de Three.js para llevar el control de la escena y de todo lo que ocurre en ella.
- */
+*/
 
 class MyScene extends THREE.Scene {
   constructor (unRenderer) {
     super();
+
+    addExplosion(this);
 
     this.audio= new AudioFondo();
     this.add(this.audio);
@@ -221,12 +223,17 @@ class MyScene extends THREE.Scene {
 
         // Se comprueba si el cubo i colisiona con la nave
         if (distancia < cubo.radio*2){
+          explode(this.nave.contenedorRotacion.children[0]);
+          doExplosionLogic();
+          //delete cubo;
+          //this.pista.remove(cubo);
           //se ha colisionado
           this.hayColision = true;
           // Se cambia el color del cubo que ha colisionado
-          cubo.children[0].children[0].material = new THREE.MeshPhongMaterial( {color: 0x0000ff, emissive:0x0000ff, emissiveIntensity:0.3} );
+          //cubo.children[0].children[0].material = new THREE.MeshPhongMaterial( {color: 0x0000ff, emissive:0x0000ff, emissiveIntensity:0.3} );
         }
       }
+      doExplosionLogic();
     }
     
     // Reinicio del circuito
@@ -285,4 +292,51 @@ class MyScene extends THREE.Scene {
     this.pausado=false;
     this.audio.sound.pause();
   }
+}
+var particleCount=20;
+var explosionPower =1.06;
+var particles;
+var particleGeometry;
+
+function addExplosion(escena){
+  particleGeometry = new THREE.Geometry();
+  for (var i = 0; i < particleCount; i ++ ) {
+      var vertex = new THREE.Vector3();
+      particleGeometry.vertices.push( vertex );
+  }
+  var pMaterial = new THREE.ParticleBasicMaterial({
+    color: 0x00ff00,
+    size: 0.2
+  });
+  particles = new THREE.Points( particleGeometry, pMaterial );
+  escena.add( particles );
+  particles.visible=false;
+}
+function explode(objeto){
+  var posicionCubo = objeto.position.clone();
+  objeto.getWorldPosition(posicionCubo);
+  particles.position.y=posicionCubo.y;
+  particles.position.z=posicionCubo.z;
+  particles.position.x=posicionCubo.x;
+  for (var i = 0; i < particleCount; i ++ ) {
+      var vertex = new THREE.Vector3();
+      vertex.x = -0.2+Math.random() * 0.4;
+      vertex.y = -0.2+Math.random() * 0.4 ;
+      vertex.z = -0.2+Math.random() * 0.4;
+      particleGeometry.vertices[i]=vertex;
+  }
+  explosionPower=1.07;
+  particles.visible=true;
+}
+function doExplosionLogic(){//called in update
+  if(!particles.visible)return;
+  for (var i = 0; i < particleCount; i ++ ) {
+      particleGeometry.vertices[i].multiplyScalar(explosionPower);
+  }
+  if(explosionPower>1.005){
+      explosionPower-=0.001;
+  }else{
+      particles.visible=false;
+  }
+  particleGeometry.verticesNeedUpdate = true;
 }
