@@ -43,39 +43,47 @@ class Pista extends THREE.Object3D {
     // Se crea el array donde se almacenarán los cubos-obstáculos
     this.cubos=[];
 
+    var particleCount=20;
+    var explosionPower =1.06;
+
+    console.log(puntos3D.length);
+
     for(var i=0; i< puntos3D.length; i++){
-      // Se crea el cubo i
-      var geometry = new THREE.BoxBufferGeometry( 0.25, 0.25, 0.25 );
-      var material = new THREE.MeshPhongMaterial( {color: 0x00ff00,emissive:0x00ff00, emissiveIntensity:0.3} );
-      var cubo = new THREE.Mesh( geometry, material );
+      //No creamos el cubo 0,1 y puntos3D.length-1
+      if(i>2 && i<puntos3D.length-1){
+        // Se crea el cubo i
+        var geometry = new THREE.BoxBufferGeometry( 0.25, 0.25, 0.25 );
+        var material = new THREE.MeshPhongMaterial( {color: 0x00ff00,emissive:0x00ff00, emissiveIntensity:0.3} );
+        var cubo = new THREE.Mesh( geometry, material );
 
-      // Se posiciona el cubo i con la altura suficiente para que asome por el tubo
-      cubo.position.set(0,0.1+0.5,0);
+        // Se posiciona el cubo i con la altura suficiente para que asome por el tubo
+        cubo.position.set(0,0.1+0.5,0);
 
-      // Se crea un contendor del cubo encargado de rotar el cubo a una posición dentro de la pista
-      var rotacionCaja = new THREE.Object3D();
-      // La rotación es aleatoria
-      rotacionCaja.rotation.z = Math.floor((Math.random() * 2*Math.PI)+0.00);
+        // Se crea un contendor del cubo encargado de rotar el cubo a una posición dentro de la pista
+        var rotacionCaja = new THREE.Object3D();
+        // La rotación es aleatoria
+        rotacionCaja.rotation.z = Math.floor((Math.random() * 2*Math.PI)+0.00);
 
-      // Se crea el contenedor encargado de posicionar el cubo i en el tubo
-      var posicionCaja = new THREE.Object3D();
-      posicionCaja.position.copy(this.obtenerPunto(i/puntos3D.length));
-      // Y se orientan correctamente
-      posicionCaja.lookAt(puntos3D[i]);
+        // Se crea el contenedor encargado de posicionar el cubo i en el tubo
+        var posicionCaja = new THREE.Object3D();
+        posicionCaja.position.copy(this.obtenerPunto(i/puntos3D.length));
+        // Y se orientan correctamente
+        posicionCaja.lookAt(puntos3D[i]);
 
-      // Se define el lugar en el que se ubica el cubo i
-      posicionCaja.porcentajePista = i/puntos3D.length;
+        // Se define el lugar en el que se ubica el cubo i
+        posicionCaja.porcentajePista = i/puntos3D.length;
 
-      // Se le asigna un radio de colisión
-      posicionCaja.radio = 0.12;
-      
-      // Se añaden los cubos a la pista
-      rotacionCaja.add(cubo);
-      posicionCaja.add(rotacionCaja);
-      this.add(posicionCaja);
+        // Se le asigna un radio de colisión
+        posicionCaja.radio = 0.12;
+        
+        // Se añaden los cubos a la pista
+        rotacionCaja.add(cubo);
+        posicionCaja.add(rotacionCaja);
+        this.add(posicionCaja);
 
-      // Se añade el cubo i al array de cubos
-      this.cubos.push(posicionCaja);
+        // Se añade el cubo i al array de cubos
+        this.cubos.push(posicionCaja);
+      }
     }
   }
 

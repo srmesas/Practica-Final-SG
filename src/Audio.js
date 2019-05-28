@@ -3,7 +3,7 @@ class AudioFondo extends THREE.Object3D {
   constructor () {
     super();
     this.sound = new Howl({
-      src: ['../sounds/ambient.ogg'], volume: 0.05, loop: true
+      src: ['../sounds/ambient.ogg'], volume: 0.00, loop: true
     });
     this.sound.play();
     
