@@ -69,11 +69,10 @@ $(function () {
   renderer = createRenderer();
 
   //PARA DEJAR DE MOSTRAR EL MENÚ
-  var instructions = document.getElementById('instrucciones');
+  instructions = document.getElementById('instrucciones');
   //var pausa = document.getElementById('pausa');
   //cuando se hace click se dea de mostrar el elemento instrucciones
   window.addEventListener('keydown', function(event){
-    var key = event.which || event.keyCode;
     switch ( event.keyCode ){
       case 13://enter
         //comenzamos el juego
@@ -95,7 +94,6 @@ $(function () {
         break;
     }
   },false);
-
 
   // La salida del renderer se muestra en un DIV de la página index.html
   $("#WebGL-output").append(renderer.domElement);
