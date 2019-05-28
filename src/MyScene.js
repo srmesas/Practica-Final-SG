@@ -32,8 +32,10 @@ class MyScene extends THREE.Scene {
     this.angulo=0;
     this.anguloInverso=-Math.PI;
     this.parametro=0.5; //NO SE USA?
-    this.pausado = false;
+    this.noPausado = false;
     this.hayColision = false;
+
+    this.finJuego=false;
     // Cámara
     this.createCamera (unRenderer);
 
@@ -160,10 +162,22 @@ class MyScene extends THREE.Scene {
   
   //Finalizar partida
   endGame(){
+    this.finJuego=true;
     var instructions = document.getElementById('instrucciones');
     instructions.style.visibility = 'visible';
-    instructions.innerHTML = "GAME OVER ";
+    instructions.innerHTML = "GAME OVER "+ "<br/>"+ 
+                             "<p>Pulsa ENTER para juego nuevo</p>";
     this.pausarJuego();
+  }
+
+  //devuelve true si game over
+  getFinJuego(){
+    return this.finJuego;
+  }
+  
+  //comenzar nuevo juego
+  newGame(){
+    document.location.reload(true);
   }
 
   update () {
@@ -197,7 +211,7 @@ class MyScene extends THREE.Scene {
     var tiempoTranscurrido = (t1-this.t0) /10000;
     // La nave avanza un espacio igual al tiempoTranscurrido
     // this.espacio comprende valores de 0 a 1, que es el porcentaje de la pista recorrido
-    if(this.pausado){
+    if(this.noPausado){
       this.espacio += tiempoTranscurrido;
     }
 
@@ -231,7 +245,7 @@ class MyScene extends THREE.Scene {
           doExplosionLogic();doExplosionLogic();doExplosionLogic();doExplosionLogic();doExplosionLogic();
           //delete cubo;
           this.pista.remove(cubo);
-          this.nave.remove(this.nave.contenedorRotacion.children[0].children[0]);
+          //this.nave.remove(this.nave.contenedorRotacion.children[0].children[0]);
           console.log(this.nave.contenedorRotacion.children[0]);
           //se ha colisionado
           this.hayColision = true;
@@ -246,8 +260,8 @@ class MyScene extends THREE.Scene {
       this.espacio = 0;
     }
 
-    //Si el juego no está pausado la nave se mueve
-    if(this.pausado){
+    //Si el juego no está noPausado la nave se mueve
+    if(this.noPausado){
       tiempoTranscurrido = 0;
       // Se obtiene el punto de la pista
       var posicion = this.pista.obtenerPunto(this.espacio);
@@ -265,7 +279,9 @@ class MyScene extends THREE.Scene {
     }
     
     //Si la nave choca, acaba el juego
-    if(this.hayColision) this.endGame();
+    if(this.hayColision){
+      this.endGame();
+    } 
     
   }
 
@@ -290,17 +306,22 @@ class MyScene extends THREE.Scene {
   comenzarMovimiento(){
     // Si hay colisión no se puede reanudar
     if(this.hayColision==false){
-      this.pausado=true;
+      this.noPausado=true;
       this.audio.sound.play();
     }
   }
 
   //pausamos el juego
   pausarJuego(){
-    this.pausado=false;
+    this.noPausado=false;
     this.audio.sound.pause();
   }
+  getnoPausado(){
+    return this.noPausado;
+  }
 }
+
+//EXPLOSION
 var particleCount=50;
 var explosionPower =1.06;
 var particles;

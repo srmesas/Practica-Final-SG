@@ -81,8 +81,8 @@ $(function () {
         scene.comenzarMovimiento();
         break;
       case 80: //p
-        
-        //instructions.style.fontSize = "30px";
+        if(enableControls){//para que no muestre la pausa si está el menú inicial
+          //instructions.style.fontSize = "30px";
         instructions.innerHTML =  "PAUSADO"+ "<br/>"+ 
                                   "<p>Pulsa ENTER para continuar</p>"+
                                   "<p>Pulsa ➡ o D para girar a la derecha</p>"+
@@ -91,8 +91,10 @@ $(function () {
         instructions.style.visibility = 'visible';
         enableControls = false;
         scene.pausarJuego();
+        }
         break;
     }
+    if(scene.getFinJuego() && event.keyCode == 13) scene.newGame(); //13 = enter
   },false);
 
   // La salida del renderer se muestra en un DIV de la página index.html
@@ -138,6 +140,8 @@ function onKeyDown (event) {
       //  break;
     }
   }
+  
+  
 }
 
 function onKeyUp (event) {
