@@ -69,7 +69,7 @@ $(function () {
   renderer = createRenderer();
 
   //PARA DEJAR DE MOSTRAR EL MENÚ
-  instructions = document.getElementById('instrucciones');
+  var instructions = document.getElementById('instrucciones');
   //var pausa = document.getElementById('pausa');
   //cuando se hace click se dea de mostrar el elemento instrucciones
   window.addEventListener('keydown', function(event){

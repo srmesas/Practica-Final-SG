@@ -155,15 +155,13 @@ class MyScene extends THREE.Scene {
     this.camera.aspect = ratio;
     this.camera.updateProjectionMatrix();
   }
-  
-  //instructions = document.getElementById('instrucciones');
+  instructions = document.getElementById('instrucciones');
   
   //Finalizar partida
   endGame(){
-    var instructions = document.getElementById('instrucciones');
     instructions.style.visibility = 'visible';
     instructions.innerHTML = "GAME OVER ";
-    this.pausarJuego();
+    pausarJuego();
   }
 
   update () {
@@ -224,19 +222,16 @@ class MyScene extends THREE.Scene {
         // Se comprueba si el cubo i colisiona con la nave
         if (distancia < cubo.radio*2){
           explode(this.nave.contenedorRotacion.children[0]);
-          doExplosionLogic();doExplosionLogic();doExplosionLogic();doExplosionLogic();doExplosionLogic();
-          doExplosionLogic();doExplosionLogic();doExplosionLogic();doExplosionLogic();doExplosionLogic();
-          doExplosionLogic();doExplosionLogic();doExplosionLogic();doExplosionLogic();doExplosionLogic();
-          doExplosionLogic();doExplosionLogic();doExplosionLogic();doExplosionLogic();doExplosionLogic();
-          doExplosionLogic();doExplosionLogic();doExplosionLogic();doExplosionLogic();doExplosionLogic();
+          doExplosionLogic();
           //delete cubo;
-          this.pista.remove(cubo);
+          //this.pista.remove(cubo);
           //se ha colisionado
           this.hayColision = true;
           // Se cambia el color del cubo que ha colisionado
           //cubo.children[0].children[0].material = new THREE.MeshPhongMaterial( {color: 0x0000ff, emissive:0x0000ff, emissiveIntensity:0.3} );
         }
       }
+      doExplosionLogic();
     }
     
     // Reinicio del circuito
@@ -286,11 +281,8 @@ class MyScene extends THREE.Scene {
   }
   //Que empiece a moverse la nave tras quitar el menu
   comenzarMovimiento(){
-    // Si hay colisión no se puede reanudar
-    if(this.hayColision==false){
-      this.pausado=true;
-      this.audio.sound.play();
-    }
+    this.pausado=true;
+    this.audio.sound.play();
   }
 
   //pausamos el juego
@@ -312,7 +304,7 @@ function addExplosion(escena){
   }
   var pMaterial = new THREE.ParticleBasicMaterial({
     color: 0x00ff00,
-    size: 0.15
+    size: 0.2
   });
   particles = new THREE.Points( particleGeometry, pMaterial );
   escena.add( particles );
