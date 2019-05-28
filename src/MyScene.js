@@ -231,6 +231,8 @@ class MyScene extends THREE.Scene {
           doExplosionLogic();doExplosionLogic();doExplosionLogic();doExplosionLogic();doExplosionLogic();
           //delete cubo;
           this.pista.remove(cubo);
+          this.nave.remove(this.nave.contenedorRotacion.children[0].children[0]);
+          console.log(this.nave.contenedorRotacion.children[0]);
           //se ha colisionado
           this.hayColision = true;
           // Se cambia el color del cubo que ha colisionado
@@ -299,7 +301,7 @@ class MyScene extends THREE.Scene {
     this.audio.sound.pause();
   }
 }
-var particleCount=20;
+var particleCount=50;
 var explosionPower =1.06;
 var particles;
 var particleGeometry;
