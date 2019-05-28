@@ -154,9 +154,12 @@ class MyScene extends THREE.Scene {
     this.camera.updateProjectionMatrix();
   }
   instructions = document.getElementById('instrucciones');
+  
+  //Finalizar partida
   endGame(){
-    this.pausado = true;
+    instructions.style.visibility = 'visible';
     instructions.innerHTML = "GAME OVER ";
+    pausarJuego();
   }
 
   update () {
@@ -247,6 +250,7 @@ class MyScene extends THREE.Scene {
       this.t0 = Date.now();
     }
     
+    //Si la nave choca, acaba el juego
     if(this.hayColision) this.endGame();
     
   }
