@@ -226,12 +226,12 @@ class MyScene extends THREE.Scene {
     // Reinicio del circuito
     if(this.espacio > 1){
       this.espacio = 0;
-      if(this.divisionTiempo < this.maxdivisionTiempo)
+      if(this.divisionTiempo > this.maxdivisionTiempo){
         this.divisionTiempo-=1000;
-      //Actualizar nivel nuevo en pantalla
-      this.actualNivel += 1;
-      this.preColision += 0.02;
-      this.updateNivel();
+        this.updateNivel();      //Actualizar nivel nuevo en pantalla
+        this.actualNivel += 1;
+        this.preColision += 0.02;
+      }
     }
 
     //Si el juego no está noPausado la nave se mueve
