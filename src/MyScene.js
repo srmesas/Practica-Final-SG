@@ -32,7 +32,7 @@ class MyScene extends THREE.Scene {
     this.noPausado = false;
     this.hayColision = false;
 
-    this.divisionTiempo = 10000;
+    this.divisionTiempo = 19900;
 
     this.finJuego=false;
     // Cámara
@@ -82,25 +82,6 @@ class MyScene extends THREE.Scene {
     this.camera.rotation.y = Math.PI;
   }
 
-  // Gui para los ejes
-  /*createGUI () {
-    // Se definen los controles que se modificarán desde la GUI
-    // En este caso la intensidad de la luz y si se muestran o no los ejes
-    this.guiControls = new function() {
-      this.axisOnOff = true;
-      this.onBoard = false;
-    }
-
-    // Accedemos a la variable global   gui   declarada en   script.js   para añadirle la parte de interfaz que corresponde a los elementos de esta clase
-
-    // Se crea una sección para los controles de esta clase
-    var folder = gui.addFolder ('Ejes');
-
-    // Y otro para mostrar u ocultar los ejes
-    folder.add (this.guiControls, 'axisOnOff').name ('Mostrar ejes escena: ');
-    folder.add (this.guiControls, 'onBoard').name ('Cámara a bordo: ');
-  }*/
-
   // Se crean las luces
   createLights () {
     // Se crea una luz ambiental, evita que se vean complentamente negras las zonas donde no incide de manera directa una fuente de luz
@@ -136,8 +117,6 @@ class MyScene extends THREE.Scene {
     this.camera.aspect = ratio;
     this.camera.updateProjectionMatrix();
   }
-  
-  //instructions = document.getElementById('instrucciones');
   
   //Finalizar partida
   endGame(){
@@ -223,7 +202,7 @@ class MyScene extends THREE.Scene {
     // Reinicio del circuito
     if(this.espacio > 1){
       this.espacio = 0;
-      this.divisionTiempo-=100;
+      this.divisionTiempo-=1500;
     }
 
     //Si el juego no está noPausado la nave se mueve
