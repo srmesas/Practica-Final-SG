@@ -29,7 +29,6 @@ class MyScene extends THREE.Scene {
     this.moveLeft = false;
     this.moveRight = false;
     this.angulo=0;
-    this.parametro=0.5; //NO SE USA?
     this.noPausado = false;
     this.hayColision = false;
 
@@ -283,9 +282,6 @@ class MyScene extends THREE.Scene {
   pausarJuego(){
     this.noPausado=false;
     this.audio.fondo.pause();
-  }
-  getnoPausado(){
-    return this.noPausado;
   }
 }
 
