@@ -5,8 +5,8 @@ class Audio extends THREE.Object3D {
     this.fondo = new Howl({
       src: ['../sounds/ambient.ogg'], volume: 0.3, loop: true, 
     });
-    this.fondo.play();
-    this.fondo.pause();
+    //this.fondo.play();
+    //this.fondo.pause();
 
     this.gameOver = new Howl({
       src: ['../sounds/GameOver.ogg'], volume: 0.2, loop: false
