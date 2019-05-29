@@ -230,7 +230,7 @@ class MyScene extends THREE.Scene {
         this.divisionTiempo-=1000;
         this.updateNivel();      //Actualizar nivel nuevo en pantalla
         this.actualNivel += 1;
-        this.preColision += 0.02;
+        this.preColision += 0.05;
       }
     }
 
