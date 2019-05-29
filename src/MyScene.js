@@ -31,8 +31,8 @@ class MyScene extends THREE.Scene {
     this.angulo=0;
     this.noPausado = false;
     this.hayColision = false;
-    this.divisionTiempo = 15000;//Controlar la velocidad de la nave
-    this.maxdivisionTiempo = 15000-1000*15;
+    this.divisionTiempo = 150;//Controlar la velocidad de la nave
+    this.maxdivisionTiempo = 15000-100*15;
     this.preColision = 0.02;
     this.finJuego=false;
     this.actualNivel = 1;
