@@ -5,7 +5,7 @@
 ### Autores:
 
 #### [Alexis Molina García](https://github.com/alexismoga)
-#### Manuel Mesas Gutiérrez
+#### [Manuel Mesas Gutiérrez](https://github.com/srmesas)
 
 ### Juego
 
