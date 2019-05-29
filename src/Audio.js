@@ -1,31 +1,23 @@
-class AudioFondo extends THREE.Object3D {
+class Audio extends THREE.Object3D {
 
   constructor () {
     super();
-    this.sound = new Howl({
-      src: ['../sounds/ambient.ogg'], volume: 0.00, loop: true
+    this.fondo = new Howl({
+      src: ['../sounds/ambient.ogg'], volume: 0.3, loop: true, 
     });
-    this.sound.play();
-    
-    /*this.listener = new THREE.AudioListener();
-    //this.add( listener );
+    this.fondo.play();
+    this.fondo.pause();
 
-    // create a global audio source
-    var sound = new THREE.Audio( this.listener );
-    this.add(sound);
+    this.gameOver = new Howl({
+      src: ['../sounds/GameOver.ogg'], volume: 0.2, loop: false
+    });
 
-    // load a sound and set it as the Audio object's buffer
-    var audioLoader = new THREE.AudioLoader();
-    audioLoader.load( 'sounds/ambient.ogg', function( buffer ) {
-      sound.setBuffer( buffer );
-      sound.setLoop( true );
-      sound.setVolume( 0.5 );
-      sound.play();
-    });*/
+    this.risa = new Howl({
+      src: ['../sounds/laugh.ogg'], volume: 0.4, loop: false
+    });
+
+    //this.fondo.play();
+    //this.gameOver.play();
+    //this.risa.play();
   }
-
-
-  /*getListener(){
-    return this.listener;
-  }*/
 }

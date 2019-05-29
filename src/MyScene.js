@@ -2,15 +2,14 @@
 /**
  * Usaremos una clase derivada de la clase Scene de Three.js para llevar el control de la escena y de todo lo que ocurre en ella.
 */
-
 class MyScene extends THREE.Scene {
   constructor (unRenderer) {
     super();
 
-    addExplosion(this);
-
-    this.audio= new AudioFondo();
+    this.audio= new Audio();
     this.add(this.audio);
+
+    addExplosion(this);
 
     // Se añade a la gui los controles para manipular los elementos de esta clase
     this.createGUI ();
@@ -162,6 +161,8 @@ class MyScene extends THREE.Scene {
   
   //Finalizar partida
   endGame(){
+    this.audio.risa.play();
+    this.audio.gameOver.play();
     this.finJuego=true;
     var instructions = document.getElementById('instrucciones');
     instructions.style.visibility = 'visible';
@@ -186,24 +187,6 @@ class MyScene extends THREE.Scene {
 
     // Se muestran o no los ejes según lo que idique la GUI
     this.axis.visible = this.guiControls.axisOnOff;
-    //this.ejes3.visible = this.guiControls.axisOnOff;
-
-    //this.cameraControl.update();
-
-    // Se actualiza la posición de la cámara según el ángulo de la nave
-    /*if(this.angulo < -0.3 && this.angulo > -Math.PI/2){
-      this.camera.position.set (0,1.2-this.angulo*this.parametro,-2.2+this.angulo);
-    }else if(this.angulo <= -Math.PI/2 && this.angulo > -Math.PI-0.3){
-      this.camera.position.set (0,1.2-this.anguloInverso*this.parametro,-2.2+this.anguloInverso);
-    }else{
-      this.camera.position.set (0,1.2,-2.2);
-    }*/
-
-    //if (this.moveLeft) this.angulo-=0.2;//this.nave.rotar(-0.2);//this.nave.moveLeft();
-    //if (this.moveRight) this.angulo+=0.2;//this.nave.rotar(0.2);//this.nave.moveRight();
-    //this.nave.rotar(this.angulo);
-
-    //this.nave.update();
 
     // Se mide el tiempo actual
     var t1 = Date.now();
@@ -305,16 +288,16 @@ class MyScene extends THREE.Scene {
   //Que empiece a moverse la nave tras quitar el menu
   comenzarMovimiento(){
     // Si hay colisión no se puede reanudar
-    if(this.hayColision==false){
+    //if(!this.hayColision){
+      this.audio.fondo.play();
       this.noPausado=true;
-      this.audio.sound.play();
-    }
+    //}
   }
 
   //pausamos el juego
   pausarJuego(){
     this.noPausado=false;
-    this.audio.sound.pause();
+    this.audio.fondo.pause();
   }
   getnoPausado(){
     return this.noPausado;

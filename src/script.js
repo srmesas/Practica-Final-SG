@@ -51,7 +51,11 @@ function render() {
   requestAnimationFrame(render);
 
   // Se le pide a la escena que se actualice antes de ser renderizada
-  scene.update();
+  // No actualiza si Game Over
+  if(!scene.getFinJuego())
+    scene.update();
+  
+  // Se actualizan las estadísticas
   stats.update();
   // Por último, se le pide al renderer que renderice la escena que capta una determinada cámara, que nos la proporciona la propia escena.
   renderer.render(scene, scene.getCamera());
