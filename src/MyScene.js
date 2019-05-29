@@ -32,6 +32,8 @@ class MyScene extends THREE.Scene {
     this.noPausado = false;
     this.hayColision = false;
     this.divisionTiempo = 15000;//Controlar la velocidad de la nave
+    this.maxdivisionTiempo = 15000-1000*15;
+    this.preColision = 0.02;
     this.finJuego=false;
     this.actualNivel = 1;
 
@@ -190,8 +192,8 @@ class MyScene extends THREE.Scene {
       cubo = this.pista.obtenerCubo(i);
 
       // Se comprueba si el cubo es cercano
-      if (cubo.porcentajePista < this.espacio+0.02
-      && cubo.porcentajePista > this.espacio-0.02){
+      if (cubo.porcentajePista < this.espacio+this.preColision
+      && cubo.porcentajePista > this.espacio-this.preColision){
         // Se obtienen las coordenadas de mundo del cubo i y la nave
         var posicionCubo = cubo.children[0].children[0].position.clone();
         var posicionNave = this.nave.getPosicion().clone();
@@ -224,9 +226,11 @@ class MyScene extends THREE.Scene {
     // Reinicio del circuito
     if(this.espacio > 1){
       this.espacio = 0;
-      this.divisionTiempo-=1000;
+      if(this.divisionTiempo < this.maxdivisionTiempo)
+        this.divisionTiempo-=1000;
       //Actualizar nivel nuevo en pantalla
       this.actualNivel += 1;
+      this.preColision += 0.02;
       this.updateNivel();
     }
 
