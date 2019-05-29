@@ -18,3 +18,10 @@ https://free3d.com/es/modelo-3d/hn-t-42-battlecruiser-94913.html
 
 mp_drakeq
 http://www.custommapmakers.org/skyboxes.php
+
+
+#### Audios:
+
+ambient: Grandma (Destruction), original soundtrack from  NieR: Automata
+GameOver: Game Over, original soundtrack fro PAX, una aventura espacial - Jaime Altozano
+laug: https://www.soundeffectsplus.com/product/man-laughing-07/

@@ -12,14 +12,14 @@ class MyScene extends THREE.Scene {
     addExplosion(this);
 
     // Se añade a la gui los controles para manipular los elementos de esta clase
-    this.createGUI ();
+    //this.createGUI ();
 
     // Construimos los distinos elementos que tendremos en la escena
     this.createLights ();
 
     // Ejes
-    this.axis = new THREE.AxesHelper (5);
-    this.add (this.axis);
+    //this.axis = new THREE.AxesHelper (5);
+    //this.add (this.axis);
 
     // Nave
     this.nave = new Nave
@@ -29,10 +29,11 @@ class MyScene extends THREE.Scene {
     this.moveLeft = false;
     this.moveRight = false;
     this.angulo=0;
-    this.anguloInverso=-Math.PI;
     this.parametro=0.5; //NO SE USA?
     this.noPausado = false;
     this.hayColision = false;
+
+    this.divisionTiempo = 10000;
 
     this.finJuego=false;
     // Cámara
@@ -83,7 +84,7 @@ class MyScene extends THREE.Scene {
   }
 
   // Gui para los ejes
-  createGUI () {
+  /*createGUI () {
     // Se definen los controles que se modificarán desde la GUI
     // En este caso la intensidad de la luz y si se muestran o no los ejes
     this.guiControls = new function() {
@@ -99,7 +100,7 @@ class MyScene extends THREE.Scene {
     // Y otro para mostrar u ocultar los ejes
     folder.add (this.guiControls, 'axisOnOff').name ('Mostrar ejes escena: ');
     folder.add (this.guiControls, 'onBoard').name ('Cámara a bordo: ');
-  }
+  }*/
 
   // Se crean las luces
   createLights () {
@@ -124,26 +125,6 @@ class MyScene extends THREE.Scene {
     this.pointLightYellow = new THREE.PointLight( 0x9db000, 0.6 );
     this.pointLightYellow.position.set( 0, -750, -200 );
     this.add (this.pointLightYellow);
-
-    /*var light = new THREE.PointLight( 0xffffff, 1.5, 2000 );
-    light.position.set( 0, 750, 100 );
-
-    var textureLoader = new THREE.TextureLoader();
-
-    var textureFlare0 = textureLoader.load( "../imgs/lensflare0.png" );
-    var textureFlare1 = textureLoader.load( "../imgs/lensflare1.png" );
-    var textureFlare2 = textureLoader.load( "../imgs/lensflare2.png" );
-    var textureFlare3 = textureLoader.load( "../imgs/lensflare3.png" );
-
-    var lensflare = new THREE.Lensflare();
-
-    lensflare.addElement( new THREE.LensflareElement( textureFlare0, 512, 0 ) );
-    lensflare.addElement( new THREE.LensflareElement( textureFlare1, 512, 0 ) );
-    lensflare.addElement( new THREE.LensflareElement( textureFlare2, 60, 0.6 ) );
-    lensflare.addElement( new THREE.LensflareElement( textureFlare3, 60, 0.6 ) );
-
-    light.add( lensflare );
-    this.add(light);*/
   }
 
   // En principio se devuelve la única cámara que tenemos
@@ -161,6 +142,7 @@ class MyScene extends THREE.Scene {
   
   //Finalizar partida
   endGame(){
+    this.audio.boom.play();
     this.audio.risa.play();
     this.audio.gameOver.play();
     this.finJuego=true;
@@ -182,16 +164,17 @@ class MyScene extends THREE.Scene {
   }
 
   update () {
+    
     // Se actualizan los elementos de la escena para cada frame
     // Se actualiza la intensidad de la luz con lo que haya indicado el usuario en la gui
 
     // Se muestran o no los ejes según lo que idique la GUI
-    this.axis.visible = this.guiControls.axisOnOff;
+    //this.axis.visible = this.guiControls.axisOnOff;
 
     // Se mide el tiempo actual
     var t1 = Date.now();
     // Se calcula el tiempo transcurrido
-    var tiempoTranscurrido = (t1-this.t0) /10000;
+    var tiempoTranscurrido = (t1-this.t0)/this.divisionTiempo;
     // La nave avanza un espacio igual al tiempoTranscurrido
     // this.espacio comprende valores de 0 a 1, que es el porcentaje de la pista recorrido
     if(this.noPausado){
@@ -207,8 +190,8 @@ class MyScene extends THREE.Scene {
       cubo = this.pista.obtenerCubo(i);
 
       // Se comprueba si el cubo es cercano
-      if (cubo.porcentajePista < this.espacio+0.01
-      && cubo.porcentajePista > this.espacio-0.01){
+      if (cubo.porcentajePista < this.espacio+0.02
+      && cubo.porcentajePista > this.espacio-0.02){
         // Se obtienen las coordenadas de mundo del cubo i y la nave
         var posicionCubo = cubo.children[0].children[0].position.clone();
         var posicionNave = this.nave.getPosicion().clone();
@@ -241,6 +224,7 @@ class MyScene extends THREE.Scene {
     // Reinicio del circuito
     if(this.espacio > 1){
       this.espacio = 0;
+      this.divisionTiempo-=100;
     }
 
     //Si el juego no está noPausado la nave se mueve
@@ -265,23 +249,24 @@ class MyScene extends THREE.Scene {
     if(this.hayColision){
       this.endGame();
     } 
-    
+
+    // Control del movimiento
+    if(this.moveLeft) this.naveMoveLeft();
+    if(this.moveRight) this.naveMoveRight();
   }
 
   // La nave gira a la izquierda
-  naveMoveLeft(booleano){
-    if(booleano){
-      this.angulo-=0.25;
-      this.anguloInverso+=0.25;
+  naveMoveLeft(){
+    if(!this.hayColision && this.noPausado){
+      this.angulo-=0.05;//0.25
       this.nave.rotar(this.angulo);
     }
   }
 
   // La nave gira a la derecha
-  naveMoveRight(booleano){
-    if(booleano){
-      this.angulo+=0.25;
-      this.anguloInverso-=0.25;
+  naveMoveRight(){
+    if(!this.hayColision && this.noPausado){
+      this.angulo+=0.05;
       this.nave.rotar(this.angulo);
     }
   }

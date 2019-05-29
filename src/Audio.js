@@ -3,10 +3,12 @@ class Audio extends THREE.Object3D {
   constructor () {
     super();
     this.fondo = new Howl({
-      src: ['../sounds/ambient.ogg'], volume: 0.3, loop: true, 
+      src: ['../sounds/ambient.ogg'], volume: 0.35, loop: true, 
     });
-    //this.fondo.play();
-    //this.fondo.pause();
+
+    this.boom = new Howl({
+      src: ['../sounds/impact.mp3'], volume: 0.9, loop: false
+    });
 
     this.gameOver = new Howl({
       src: ['../sounds/GameOver.ogg'], volume: 0.2, loop: false

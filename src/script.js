@@ -114,7 +114,7 @@ $(function () {
   window.addEventListener("keyup", onKeyUp, true);
   
   // Se crea una interfaz gráfica de usuario vacia
-  gui = new dat.GUI();
+  //gui = new dat.GUI();
 
   // Se crea la escena. La escena es una instancia de nuestra propia clase encargada de crear y gestionar todos los elementos que intervienen en la escena.
   scene = new MyScene (renderer.domElement);
@@ -132,12 +132,14 @@ function onKeyDown (event) {
 
       case 37: // left
       case 65: // a
-        scene.naveMoveLeft(true);
+        //scene.naveMoveLeft();
+        scene.moveLeft = true;
         break;
 
       case 39: // right
       case 68: // d
-        scene.naveMoveRight(true);
+        //scene.naveMoveRight();
+        scene.moveRight = true;
         break; 
       //case 32: // space
       //  shoot = true;
@@ -154,12 +156,12 @@ function onKeyUp (event) {
 
       case 37: // left
       case 65: // a
-        scene.naveMoveLeft(false);
+        scene.moveLeft = false;//scene.naveMoveLeft();
         break;
 
       case 39: // right
       case 68: // d
-        scene.naveMoveRight(false);
+        scene.moveRight = false;//scene.naveMoveRight();
         break;
       //case 32: // space
       //  shoot = false;
