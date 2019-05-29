@@ -31,13 +31,14 @@ class MyScene extends THREE.Scene {
     this.angulo=0;
     this.noPausado = false;
     this.hayColision = false;
-
-    this.divisionTiempo = 19900;
-
+    this.divisionTiempo = 19900;//Controlar la velocidad de la nave
     this.finJuego=false;
+    this.actualNivel = 1;
+
     // Cámara
     this.createCamera (unRenderer);
-
+    this.createStats();
+    
     //SkyBox
     this.skybox = new SkyBox();
     this.add(this.skybox);
@@ -59,6 +60,27 @@ class MyScene extends THREE.Scene {
 
   }
 
+  //Creamos las estadisticas 
+  createStats(){
+    var nivel =  document.createElement('div');
+    var textnode = document.createTextNode("Nivel: 1");
+    nivel.appendChild(textnode);
+    nivel.id = "nivel";
+    nivel.style.position = 'fixed';
+    nivel.style.bottom = 0;
+    nivel.style.left = 0;
+    nivel.style.width = 1;
+    nivel.style.height = 1;
+    //nivel.innerHTML = "Nivel: " + this.actualNivel;
+    nivel.style.color = "white";
+    document.getElementById("overlay").appendChild(nivel);
+  }
+
+  //Actualizar el nivel en el que estamos
+  updateNivel() {
+    var level = document.getElementById("nivel");
+    level.innerHTML = "Nivel: " + this.actualNivel;
+  }
   //Se crea la cámara
   createCamera (unRenderer) {
     // Para crear una cámara le indicamos
@@ -203,6 +225,9 @@ class MyScene extends THREE.Scene {
     if(this.espacio > 1){
       this.espacio = 0;
       this.divisionTiempo-=1500;
+      //Actualizar nivel nuevo en pantalla
+      this.actualNivel += 1;
+      this.updateNivel();
     }
 
     //Si el juego no está noPausado la nave se mueve
